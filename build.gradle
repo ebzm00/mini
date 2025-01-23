@@ -32,6 +32,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+	// jasypt
+	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
+
 	/*spring security + mariadb*/
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'

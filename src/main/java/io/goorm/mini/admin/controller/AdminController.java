@@ -1,49 +1,82 @@
+
 package io.goorm.mini.admin.controller;
 
+import io.goorm.mini.mapper.AdminMapper;
+import io.goorm.mini.domain.Admin;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/mgr")
 public class AdminController {
+
+    AdminMapper adminMapper;
+
+    @Autowired
+    public AdminController(AdminMapper adminMapper) {
+        this.adminMapper = adminMapper;
+    }
 
     //리스트
     @GetMapping("/admins")
-    public String list(Model model){
+    public String list(Model model) {
 
-        //model.addAttribute("posts",boardService.getBoards());
+        // model.addAttribute("posts", adminSe.getBoards());
 
-        return "admin/admin/list";
+        return "mgr/admin/list";
     }
 
     //뷰
     @GetMapping("/admins/{adminSeq}")
-    public String view(Model model) {
+    public String  get(@PathVariable Long adminSeq, Model model) {
 
-        //model.addAttribute("posts",boardService.getBoards());
+        //model.addAttribute("posts", boardService.getBoards());
 
-        return "admin/admin/view";
+        return "mgr/admin/view";
     }
 
-    //등록
+    //생성화면
     @GetMapping("/admins/create")
-    public String create(Model model) {
+    public String  createForm(Model model) {
 
-        //model.addAttribute("posts",boardService.getBoards());
+        //model.addAttribute("posts", boardService.getBoards());
 
-        return "admin/admin/create";
+        return "mgr/admin/create";
     }
 
-    @GetMapping("/admins/modify")
-    public String modify(Model model) {
 
-        //model.addAttribute("posts",boardService.getBoards());
+    //생성
+    @PostMapping("/admins")
+    public String create(@ModelAttribute Admin admin, Model model) {
 
-        return "admin/admin/modify";
+        return "redirect:/mgr/admins";
+    }
+
+
+    //수정화면
+    @GetMapping("/admins/{adminSeq}/update")
+    public String updateForm(@PathVariable Long adminSeq, Model model) {
+
+        //model.addAttribute("posts", boardService.getBoards());
+
+        return "mgr/admin/update";
+    }
+
+    //수정
+    @PostMapping("/admins/{adminSeq}")
+    public String  update(@ModelAttribute Admin admin, Model model, RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addAttribute("adminSeq", admin.getAdminSeq());
+        redirectAttributes.addFlashAttribute("msg", "수정에 성공하였습니다.");
+
+        return "redirect:/mgr/admins/{adminSeq}";
+
+        //return "redirect:/mgr/admins/" + admin.getAdminSeq();
     }
 
 }
