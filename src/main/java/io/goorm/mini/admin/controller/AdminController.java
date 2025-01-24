@@ -1,4 +1,3 @@
-
 package io.goorm.mini.admin.controller;
 
 import io.goorm.mini.mapper.AdminMapper;
@@ -71,7 +70,7 @@ public class AdminController {
     @PostMapping("/admins/{adminSeq}")
     public String  update(@ModelAttribute Admin admin, Model model, RedirectAttributes redirectAttributes) {
 
-        redirectAttributes.addAttribute("adminSeq", admin.getAdminSeq());
+//        redirectAttributes.addAttribute("adminSeq", admin.getAdminSeq());
         redirectAttributes.addFlashAttribute("msg", "수정에 성공하였습니다.");
 
         return "redirect:/mgr/admins/{adminSeq}";
